@@ -1,0 +1,93 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { STORE_URL } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Page Not Found — Avora Matcha" description="The page you were looking for could not be found." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="notfound">
+				<span class="code">404</span>
+				<h1>This page steeped away</h1>
+				<p>
+					The page you were looking for could not be found. Let's get you back
+					to something good.
+				</p>
+				<div class="actions">
+					<a class="btn primary" href="/">Back home</a>
+					<a class="btn outline" href="/blog">Read the Journal</a>
+					<a class="btn outline" href={STORE_URL} target="_blank" rel="noopener">Shop Avora</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+
+		<style>
+			main {
+				max-width: 720px;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+			}
+			.notfound {
+				text-align: center;
+				padding: 5rem 0 4rem;
+			}
+			.code {
+				font-family: var(--font-display);
+				font-size: clamp(4rem, 14vw, 8rem);
+				font-weight: 600;
+				color: var(--color-crimson);
+				line-height: 1;
+			}
+			.notfound h1 {
+				margin: 0.5rem 0 0.8rem;
+			}
+			.notfound p {
+				color: var(--color-muted);
+				font-size: 1.15rem;
+				max-width: 34ch;
+				margin: 0 auto 2rem;
+			}
+			.actions {
+				display: flex;
+				gap: 0.75rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+			.btn {
+				text-decoration: none;
+				font-size: 0.9rem;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				padding: 0.8rem 1.5rem;
+				border-radius: 999px;
+				transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+			}
+			.btn.primary {
+				background: var(--color-crimson);
+				color: var(--color-cream);
+				border: 2px solid var(--color-crimson);
+			}
+			.btn.primary:hover {
+				background: var(--color-crimson-dark);
+				transform: translateY(-2px);
+			}
+			.btn.outline {
+				border: 2px solid var(--color-crimson);
+				color: var(--color-crimson);
+			}
+			.btn.outline:hover {
+				background: var(--color-crimson);
+				color: var(--color-cream);
+				transform: translateY(-2px);
+			}
+		</style>
+	</body>
+</html>

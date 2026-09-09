@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { STORE_URL } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -19,73 +20,151 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			image={heroImage}
 			article={{ publishedTime: pubDate, modifiedTime: updatedDate }}
 		/>
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
 	</head>
-
 	<body>
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
+				<header class="post-head">
+					<a class="back" href="/blog">← The Journal</a>
+					<div class="post-meta">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<span class="updated">
+									· Updated <FormattedDate date={updatedDate} />
+								</span>
+							)
+						}
 					</div>
+					<h1>{title}</h1>
+					<p class="dek">{description}</p>
+				</header>
+
+				{
+					heroImage && (
+						<div class="hero-image" data-reveal>
+							<Image
+								src={heroImage}
+								alt=""
+								widths={[600, 1000, 1360]}
+								sizes="(max-width: 900px) 100vw, 900px"
+							/>
+						</div>
+					)
+				}
+
+				<div class="prose">
 					<slot />
 				</div>
+
+				<aside class="post-cta">
+					<span class="eyebrow">Taste the difference</span>
+					<h2>Ceremonial-grade matcha, made for everyday</h2>
+					<p>First-harvest leaves from Kyoto &amp; Kagoshima. Smooth, umami-rich, never grassy.</p>
+					<a class="btn" href={STORE_URL} target="_blank" rel="noopener">Shop Avora Matcha →</a>
+				</aside>
 			</article>
 		</main>
 		<Footer />
+
+		<style>
+			main {
+				max-width: 900px;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+			}
+			.post-head {
+				text-align: center;
+				max-width: 720px;
+				margin: 3rem auto 2rem;
+			}
+			.back {
+				display: inline-block;
+				font-size: 0.8rem;
+				font-weight: 600;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				text-decoration: none;
+				color: var(--color-muted);
+				margin-bottom: 1.4rem;
+			}
+			.back:hover {
+				color: var(--color-crimson);
+			}
+			.post-meta {
+				font-size: 0.82rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: var(--color-muted);
+				margin-bottom: 0.8rem;
+			}
+			.post-head h1 {
+				margin: 0 0 1rem;
+			}
+			.dek {
+				font-size: 1.25rem;
+				font-family: var(--font-display);
+				font-style: italic;
+				color: var(--color-muted);
+				margin: 0;
+			}
+			.hero-image {
+				margin: 2.5rem 0 3rem;
+			}
+			.hero-image :global(img) {
+				width: 100%;
+				height: auto;
+				border-radius: 20px;
+				box-shadow: var(--shadow-lift);
+			}
+			.prose {
+				max-width: 680px;
+				margin: 0 auto;
+			}
+
+			/* End-of-post CTA */
+			.post-cta {
+				max-width: 680px;
+				margin: 4rem auto 0;
+				text-align: center;
+				background: var(--color-crimson);
+				color: var(--color-cream);
+				border-radius: 24px;
+				padding: 3rem 2rem;
+			}
+			.post-cta .eyebrow {
+				display: inline-block;
+				font-size: 0.76rem;
+				font-weight: 600;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: color-mix(in srgb, var(--color-cream) 75%, transparent);
+				margin-bottom: 0.7rem;
+			}
+			.post-cta h2 {
+				color: var(--color-cream);
+				margin: 0 0 0.6rem;
+				font-size: 1.9rem;
+			}
+			.post-cta p {
+				color: color-mix(in srgb, var(--color-cream) 80%, transparent);
+				margin: 0 0 1.5rem;
+			}
+			.post-cta .btn {
+				display: inline-block;
+				background: var(--color-cream);
+				color: var(--color-crimson);
+				text-decoration: none;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				padding: 0.8rem 1.6rem;
+				border-radius: 999px;
+				transition: transform 0.2s ease;
+			}
+			.post-cta .btn:hover {
+				transform: translateY(-2px);
+			}
+		</style>
 	</body>
 </html>

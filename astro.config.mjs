@@ -6,34 +6,37 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import react from '@astrojs/react';
 
+import tailwindcss from '@tailwindcss/vite';
+
 // https://astro.build/config
 export default defineConfig({
-    // The blog is deployed as a subdomain. This drives canonical URLs, the
-    // sitemap, and RSS links so Google indexes the right addresses.
-    site: 'https://blog.avoramatcha.com',
-    integrations: [mdx(), sitemap(), react()],
-    fonts: [
-        {
-            provider: fontProviders.local(),
-            name: 'Atkinson',
-            cssVariable: '--font-atkinson',
-            fallbacks: ['sans-serif'],
-            options: {
-                variants: [
-                    {
-                        src: ['./src/assets/fonts/atkinson-regular.woff'],
-                        weight: 400,
-                        style: 'normal',
-                        display: 'swap',
-                    },
-                    {
-                        src: ['./src/assets/fonts/atkinson-bold.woff'],
-                        weight: 700,
-                        style: 'normal',
-                        display: 'swap',
-                    },
-                ],
-            },
-        },
-    ],
+  site: 'https://blog.avoramatcha.com',
+  // Build into docs/ so GitHub Pages can serve from the /docs folder.
+  outDir: './docs',
+
+  integrations: [mdx(), sitemap(), react()],
+
+  fonts: [
+      {
+          // Display serif for headlines.
+          provider: fontProviders.google(),
+          name: 'Cormorant Garamond',
+          cssVariable: '--font-cormorant',
+          fallbacks: ['Georgia', 'serif'],
+          weights: [400, 500, 600, 700],
+          styles: ['normal', 'italic'],
+      },
+      {
+          // Body sans.
+          provider: fontProviders.google(),
+          name: 'DM Sans',
+          cssVariable: '--font-dmsans',
+          fallbacks: ['system-ui', 'sans-serif'],
+          weights: [400, 500, 600, 700],
+      },
+  ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

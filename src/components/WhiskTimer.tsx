@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 /**
- * WhiskTimer — an interactive React "island".
+ * WhiskTimer: an interactive React "island".
  *
  * This is a client-side interactive component. In Astro it renders to static
  * HTML at build time (good for SEO) and only "hydrates" into live JavaScript
@@ -79,58 +79,72 @@ export default function WhiskTimer() {
 			<style>{`
 				.whisk-timer {
 					text-align: center;
-					padding: 1.5em;
-					border: 1px solid rgb(var(--gray-light));
-					border-radius: 16px;
-					background: #fff;
-					box-shadow: var(--box-shadow);
+					padding: 2em 1.5em;
+					border: 1px solid var(--color-line);
+					border-radius: 20px;
+					background: var(--color-card);
+					box-shadow: var(--shadow-soft);
 				}
 				.whisk-ring {
-					width: 120px;
-					height: 120px;
-					margin: 0 auto 0.75em;
+					position: relative;
+					width: 132px;
+					height: 132px;
+					margin: 0 auto 1em;
 					border-radius: 50%;
 					display: grid;
 					place-items: center;
 					background:
-						conic-gradient(var(--accent) var(--pct), rgb(var(--gray-light)) 0);
+						conic-gradient(var(--color-crimson) var(--pct), var(--color-line) 0);
 					transition: background 1s linear;
 				}
 				.whisk-ring::after {
 					content: '';
 					position: absolute;
-					width: 96px;
-					height: 96px;
+					width: 104px;
+					height: 104px;
 					border-radius: 50%;
-					background: #fff;
+					background: var(--color-card);
 				}
 				.whisk-count {
 					position: relative;
-					font-size: 2.2em;
-					font-weight: 700;
-					color: var(--accent-dark);
+					font-family: var(--font-display, Georgia, serif);
+					font-size: 2.6em;
+					font-weight: 600;
+					color: var(--color-crimson-dark);
 				}
 				.whisk-label {
-					margin: 0 0 1em;
-					color: rgb(var(--gray-dark));
+					margin: 0 0 1.2em;
+					color: var(--color-muted);
 				}
 				.whisk-actions {
 					display: flex;
-					gap: 0.5em;
+					flex-wrap: wrap;
+					gap: 0.6em;
 					justify-content: center;
 				}
 				.whisk-actions button {
 					font: inherit;
-					padding: 0.5em 1.2em;
+					font-weight: 600;
+					letter-spacing: 0.02em;
+					padding: 0.6em 1.4em;
 					border-radius: 999px;
-					border: 2px solid var(--accent);
-					background: var(--accent);
-					color: #fff;
+					border: 2px solid var(--color-crimson);
+					background: var(--color-crimson);
+					color: var(--color-cream);
 					cursor: pointer;
+					transition: transform 0.2s ease, background 0.2s ease;
+				}
+				.whisk-actions button:hover {
+					background: var(--color-crimson-dark);
+					transform: translateY(-1px);
 				}
 				.whisk-actions button.ghost {
 					background: transparent;
-					color: var(--accent);
+					color: var(--color-crimson);
+				}
+				.whisk-actions button.ghost:hover {
+					background: color-mix(in srgb, var(--color-crimson) 8%, transparent);
+					transform: none;
 				}
 			`}</style>
 		</div>

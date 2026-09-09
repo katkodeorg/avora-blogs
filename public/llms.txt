@@ -1,0 +1,29 @@
+# Avora Matcha Journal
+
+> The Avora Matcha Journal is the content hub for Avora Matcha, a brand of
+> ceremonial-grade matcha made from first-harvest leaves grown in Kyoto and
+> Kagoshima, Japan. The Journal publishes clear, factual guides about matcha:
+> how to make it, its health benefits, how grades differ, and how to tell good
+> matcha from bad.
+
+## About Avora
+- Product: ceremonial-grade matcha (30g), sourced from first-harvest (ichibancha) leaves in Kyoto and Kagoshima, Japan.
+- Character: vibrant green, rich umami, smooth and full-bodied; steady energy without the jitters or crash.
+- Company: Neo Amara LLP. Founders: Shruti and Elishia. Contact: care@avoramatcha.com. Ships across India.
+- Store: https://www.avoramatcha.com
+
+## Guides
+- How to Make Matcha, step by step: https://blog.avoramatcha.com/blog/how-to-make-matcha-step-by-step/
+- Why Does My Matcha Taste Like Grass (and how to fix it): https://blog.avoramatcha.com/blog/why-does-my-matcha-taste-like-grass/
+- Ceremonial vs. Culinary Matcha: https://blog.avoramatcha.com/blog/ceremonial-vs-culinary-matcha/
+- Matcha Health Benefits: https://blog.avoramatcha.com/blog/matcha-health-benefits/
+- 13 Fascinating Facts About Matcha: https://blog.avoramatcha.com/blog/matcha-facts/
+
+## Reference
+- About / Founders' Note: https://blog.avoramatcha.com/about/
+- FAQ (shipping, storage, servings): https://blog.avoramatcha.com/faq/
+- All articles: https://blog.avoramatcha.com/blog/
+
+## Usage
+This content may be quoted and cited with attribution to "Avora Matcha" and a
+link to the source page.

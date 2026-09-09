@@ -31,7 +31,7 @@ const socialImageURL = new URL(image.src, Astro.url).toString();
 // Logo lives on this blog site (where the favicon actually exists).
 const logoURL = new URL('/avora-favicon.png', Astro.site).toString();
 
-// Organization structured data — helps Google understand the brand and can
+// Organization structured data. Helps Google understand the brand and can
 // power a Knowledge Panel. Emitted on every page.
 const organizationSchema = {
 	'@context': 'https://schema.org',
@@ -42,7 +42,7 @@ const organizationSchema = {
 	...(SOCIAL_LINKS.length ? { sameAs: SOCIAL_LINKS } : {}),
 };
 
-// Article structured data — only on blog posts. Enables article rich results.
+// Article structured data, only on blog posts. Enables article rich results.
 const articleSchema = article
 	? {
 			'@context': 'https://schema.org',
@@ -84,7 +84,8 @@ const articleSchema = article
 />
 <meta name="generator" content={Astro.generator} />
 
-<Font cssVariable="--font-atkinson" preload />
+<Font cssVariable="--font-cormorant" preload />
+<Font cssVariable="--font-dmsans" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -138,3 +139,30 @@ const articleSchema = article
 		/>
 	)
 }
+
+<!-- Tasteful scroll-reveal (no library). Elements with [data-reveal] fade up
+     as they enter the viewport. Content is in the HTML regardless; this only
+     affects presentation, never indexing. Respects prefers-reduced-motion. -->
+<script>
+	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+	if (reduce || !('IntersectionObserver' in window)) {
+		els.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const io = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const el = entry.target as HTMLElement;
+						const delay = el.dataset.revealDelay;
+						if (delay) el.style.transitionDelay = `${delay}ms`;
+						el.classList.add('is-visible');
+						io.unobserve(el);
+					}
+				});
+			},
+			{ rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
+		);
+		els.forEach((el) => io.observe(el));
+	}
+</script>

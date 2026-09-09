@@ -4,7 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { STORE_URL } from '../consts';
 
-const title = 'Avora Matcha FAQ — Shipping, Storage & How to Drink It';
+const title = 'Avora Matcha FAQ: Shipping, Storage & How to Drink It';
 const description =
 	'Answers to common questions about Avora Matcha: shipping across India, how to store matcha, how much to use per serving, daily consumption, and how it makes you feel.';
 
@@ -23,7 +23,7 @@ const faqs = [
 	},
 	{
 		q: 'How much matcha should I use per serving?',
-		a: 'We recommend 1–2 teaspoons per cup, depending on how strong you like it. Start light — you can always add more.',
+		a: 'We recommend 1–2 teaspoons per cup, depending on how strong you like it. Start light, you can always add more.',
 	},
 	{
 		q: 'Is Avora matcha suitable for daily consumption?',
@@ -47,7 +47,7 @@ const faqs = [
 	},
 ];
 
-// FAQPage structured data — can produce expandable FAQ rich results in Google.
+// FAQPage structured data. Can produce expandable FAQ rich results in Google.
 const faqSchema = {
 	'@context': 'https://schema.org',
 	'@type': 'FAQPage',
@@ -68,79 +68,107 @@ const faqSchema = {
 			set:html={JSON.stringify(faqSchema)}
 		/>
 		<style>
-			.faq-intro {
-				margin-bottom: 2em;
+			main {
+				max-width: 780px;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+			}
+			.page-head {
+				text-align: center;
+				margin: 4rem auto 2.5rem;
+			}
+			.eyebrow {
+				display: inline-block;
+				font-size: 0.78rem;
+				font-weight: 600;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--color-crimson);
+				margin-bottom: 0.8rem;
+			}
+			.page-head p {
+				font-size: 1.15rem;
+				color: var(--color-muted);
+				margin-top: 0.8rem;
 			}
 			details {
-				border: 1px solid rgb(var(--gray-light));
-				border-radius: 12px;
-				padding: 0.25em 1.25em;
-				margin-bottom: 0.75em;
-				background: #fff;
+				border: 1px solid var(--color-line);
+				border-radius: 14px;
+				padding: 0.2rem 1.4rem;
+				margin-bottom: 0.85rem;
+				background: var(--color-card);
+				transition: box-shadow 0.25s ease, border-color 0.25s ease;
 			}
 			details[open] {
-				box-shadow: var(--box-shadow);
+				box-shadow: var(--shadow-soft);
+				border-color: color-mix(in srgb, var(--color-crimson) 30%, var(--color-line));
 			}
 			summary {
 				cursor: pointer;
-				font-weight: 700;
-				font-size: 1.1em;
-				padding: 0.9em 0;
+				font-family: var(--font-display);
+				font-weight: 600;
+				font-size: 1.2rem;
+				color: var(--color-ink);
+				padding: 1.1rem 0;
 				list-style: none;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				gap: 1em;
-				color: rgb(var(--black));
+				gap: 1rem;
 			}
 			summary::-webkit-details-marker {
 				display: none;
 			}
 			summary::after {
 				content: '+';
-				color: var(--accent);
-				font-size: 1.4em;
+				color: var(--color-crimson);
+				font-size: 1.5rem;
 				line-height: 1;
+				transition: transform 0.25s ease;
 			}
 			details[open] summary::after {
 				content: '–';
 			}
 			details p {
-				margin: 0 0 1em;
-				color: rgb(var(--gray-dark));
+				margin: 0 0 1.2rem;
+				color: var(--color-body);
 			}
 			.faq-cta {
-				margin-top: 2.5em;
+				margin: 3rem 0 0;
 				text-align: center;
 			}
 			.btn {
 				display: inline-block;
 				text-decoration: none;
-				font-weight: 700;
-				padding: 0.6em 1.4em;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				padding: 0.8rem 1.6rem;
 				border-radius: 999px;
-				border: 2px solid var(--accent);
-				background: var(--accent);
-				color: var(--cream);
+				background: var(--color-crimson);
+				color: var(--color-cream);
+				transition: transform 0.2s ease, background 0.2s ease;
 			}
 			.btn:hover {
-				background: var(--accent-dark);
-				color: var(--cream);
+				background: var(--color-crimson-dark);
+				transform: translateY(-2px);
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>Frequently Asked Questions</h1>
-			<p class="faq-intro">
-				Everything you might want to know about Avora Matcha — shipping,
-				storage, how much to use, and what it actually feels like.
-			</p>
+			<header class="page-head">
+				<span class="eyebrow">Good to know</span>
+				<h1>Frequently Asked Questions</h1>
+				<p>
+					Everything you might want to know about Avora Matcha: shipping,
+					storage, how much to use, and what it actually feels like.
+				</p>
+			</header>
 
 			{
-				faqs.map((f) => (
-					<details>
+				faqs.map((f, i) => (
+					<details data-reveal data-reveal-delay={i * 60}>
 						<summary>{f.q}</summary>
 						<p>{f.a}</p>
 					</details>

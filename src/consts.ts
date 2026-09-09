@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = 'Avora Matcha Journal';
 export const SITE_DESCRIPTION =
-	'The Avora Matcha Journal — everything about ceremonial-grade matcha: how to whisk it, where it comes from, its health benefits, and the story behind Avora. Sourced from Kyoto & Kagoshima, Japan.';
+	'The Avora Matcha Journal. Everything about ceremonial-grade matcha: how to whisk it, where it comes from, its health benefits, and the story behind Avora. Sourced from Kyoto & Kagoshima, Japan.';
 
 // Used for Organization structured data (JSON-LD) and Open Graph.
 export const BRAND_NAME = 'Avora Matcha';

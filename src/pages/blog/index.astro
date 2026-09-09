@@ -5,110 +5,253 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const [featured, ...rest] = posts;
+const title = 'The Avora Matcha Journal';
+const description =
+	'Guides, science, and stories about ceremonial-grade matcha: how to make it, where it comes from, and how to taste the difference.';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={title} description={description} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
+			<header class="page-head">
+				<span class="eyebrow">The Journal</span>
+				<h1>Everything matcha, <em>properly</em> explained</h1>
+				<p>
+					Guides, science, and stories about ceremonial-grade matcha: how to
+					make it, where it comes from, and how to taste the difference.
+				</p>
+			</header>
+
+			{
+				featured && (
+					<a class="featured lift" href={`/blog/${featured.id}/`} data-reveal>
+						<div class="featured-img">
+							{featured.data.heroImage && (
+								<Image
+									src={featured.data.heroImage}
+									alt=""
+									widths={[600, 1000, 1200]}
+									sizes="(max-width: 900px) 100vw, 1120px"
+								/>
+							)}
+						</div>
+						<div class="featured-copy">
+							<span class="tag">Featured</span>
+							<h2>{featured.data.title}</h2>
+							<p>{featured.data.description}</p>
+							<span class="meta">
+								<FormattedDate date={featured.data.pubDate} /> · Read more →
+							</span>
+						</div>
+					</a>
+				)
+			}
+
+			<ul class="grid">
+				{
+					rest.map((post, i) => (
+						<li class="lift" data-reveal data-reveal-delay={i * 100}>
+							<a href={`/blog/${post.id}/`}>
+								<div class="card-img">
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<Image
+											src={post.data.heroImage}
+											alt=""
+											width={480}
+											height={320}
+										/>
 									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+								</div>
+								<span class="meta">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+								<h3>{post.data.title}</h3>
+								<p>{post.data.description}</p>
+								<span class="readmore">Read more →</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</main>
 		<Footer />
+
+		<style>
+			main {
+				max-width: 1120px;
+				margin: 0 auto;
+				padding: 0 1.5rem;
+			}
+			.eyebrow {
+				display: inline-block;
+				font-size: 0.78rem;
+				font-weight: 600;
+				letter-spacing: 0.16em;
+				text-transform: uppercase;
+				color: var(--color-crimson);
+				margin-bottom: 0.8rem;
+			}
+			.page-head {
+				text-align: center;
+				max-width: 720px;
+				margin: 4rem auto 3rem;
+			}
+			.page-head h1 em {
+				font-style: italic;
+				color: var(--color-crimson);
+			}
+			.page-head p {
+				font-size: 1.2rem;
+				color: var(--color-muted);
+				margin-top: 1rem;
+			}
+
+			/* Featured */
+			.featured {
+				display: grid;
+				grid-template-columns: 1.3fr 1fr;
+				gap: 0;
+				background: var(--color-card);
+				border: 1px solid var(--color-line);
+				border-radius: var(--radius-card);
+				overflow: hidden;
+				box-shadow: var(--shadow-soft);
+				text-decoration: none;
+				color: inherit;
+				margin-bottom: 3.5rem;
+			}
+			.featured-img {
+				overflow: hidden;
+			}
+			.featured-img :global(img) {
+				width: 100%;
+				height: 100%;
+				min-height: 320px;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+			.featured:hover .featured-img :global(img) {
+				transform: scale(1.04);
+			}
+			.featured-copy {
+				padding: 2.5rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+			.tag {
+				font-size: 0.72rem;
+				font-weight: 600;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--color-crimson);
+				margin-bottom: 0.8rem;
+			}
+			.featured-copy h2 {
+				margin: 0 0 0.8rem;
+			}
+			.featured-copy p {
+				color: var(--color-muted);
+				margin: 0 0 1.2rem;
+			}
+			.meta {
+				font-size: 0.8rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--color-muted);
+			}
+
+			/* Grid */
+			.grid {
+				list-style: none;
+				margin: 0 0 2rem;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 2.5rem 1.75rem;
+			}
+			.grid li {
+				background: var(--color-card);
+				border: 1px solid var(--color-line);
+				border-radius: var(--radius-card);
+				overflow: hidden;
+				box-shadow: var(--shadow-soft);
+			}
+			.grid a {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+				padding-bottom: 1.4rem;
+			}
+			.card-img {
+				overflow: hidden;
+			}
+			.card-img :global(img) {
+				width: 100%;
+				aspect-ratio: 3 / 2;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+			}
+			.grid li:hover .card-img :global(img) {
+				transform: scale(1.05);
+			}
+			.grid .meta {
+				display: block;
+				padding: 1.2rem 1.3rem 0.3rem;
+			}
+			.grid h3 {
+				font-size: 1.35rem;
+				margin: 0;
+				padding: 0 1.3rem;
+			}
+			.grid p {
+				color: var(--color-muted);
+				font-size: 0.98rem;
+				padding: 0.5rem 1.3rem 0;
+				margin: 0;
+			}
+			.readmore {
+				display: inline-block;
+				margin: 0.9rem 1.3rem 0;
+				font-size: 0.8rem;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: var(--color-crimson);
+			}
+
+			@media (max-width: 900px) {
+				.grid {
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+			@media (max-width: 640px) {
+				.featured {
+					grid-template-columns: 1fr;
+				}
+				.featured-img :global(img) {
+					min-height: 220px;
+				}
+				.featured-copy {
+					padding: 1.8rem;
+				}
+				.grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
 	</body>
 </html>

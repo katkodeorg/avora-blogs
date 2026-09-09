@@ -11,18 +11,18 @@ and meaningful difference in quality and intended use.
 
 ## Ceremonial-grade matcha
 
-- **Harvest:** first harvest (ichibancha) — the youngest, sweetest leaves.
+- **Harvest:** first harvest (ichibancha), the youngest, sweetest leaves.
 - **Leaves:** young leaf tips, stems and veins removed, stone-ground.
 - **Color:** vibrant, living green.
 - **Taste:** smooth, full-bodied, naturally sweet, with rich umami and no harsh bitterness.
 - **Best for:** drinking on its own, whisked with just water.
 
-This is the grade you want for a traditional bowl of matcha. [Avora](https://www.avoramatcha.com)
+This is the grade you want for a traditional bowl of matcha. [Avora](https://www.avoramatcha.com/product/ceremonial-matcha)
 is ceremonial-grade, sourced from first-harvest leaves in Kyoto and Kagoshima.
 
 ## Culinary-grade matcha
 
-- **Harvest:** later harvests — more mature leaves.
+- **Harvest:** later harvests, more mature leaves.
 - **Color:** duller, more olive or yellow-green.
 - **Taste:** stronger, more astringent and bitter.
 - **Best for:** lattes, smoothies, baking, and recipes where matcha is mixed with milk, sugar, or other ingredients.
@@ -44,3 +44,8 @@ actually useful in a latte, where it cuts through milk and sweetener.
 Regardless of grade, good matcha is a **bright, vivid green**. A dull, brownish,
 or yellow tint is a sign of older leaves or oxidation. Learn more in our guide
 to [why matcha tastes grassy](/blog/why-does-my-matcha-taste-like-grass/).
+
+If you want ceremonial-grade you can drink every day,
+[shop Avora ceremonial matcha](https://www.avoramatcha.com/product/ceremonial-matcha),
+first-harvest leaves from Kyoto and Kagoshima. Prefer a latte? Here is our
+[matcha latte recipe](/blog/matcha-latte-recipe/).

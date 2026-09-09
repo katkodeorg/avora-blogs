@@ -7,8 +7,8 @@ import logo from '../assets/brand/avora-logo.png';
 
 <header>
 	<nav>
-		<a class="brand" href="/">
-			<Image src={logo} alt="Avora Matcha" height={36} densities={[1.5, 2]} />
+		<a class="brand" href="/" aria-label="Avora Matcha home">
+			<Image src={logo} alt="Avora Matcha" height={30} densities={[1.5, 2]} />
 		</a>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -16,66 +16,83 @@ import logo from '../assets/brand/avora-logo.png';
 			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/faq">FAQ</HeaderLink>
 		</div>
-		<div class="social-links">
-			<a class="shop-cta" href={STORE_URL} target="_blank" rel="noopener">
-				Shop Avora →
-			</a>
-		</div>
+		<a class="shop-cta" href={STORE_URL} target="_blank" rel="noopener">
+			Shop Avora
+		</a>
 	</nav>
 </header>
 <style>
 	header {
-		margin: 0;
-		padding: 0 1.5em;
-		background: var(--accent);
-		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: color-mix(in srgb, var(--color-crimson) 92%, transparent);
+		backdrop-filter: saturate(140%) blur(8px);
+		border-bottom: 1px solid color-mix(in srgb, var(--color-cream) 18%, transparent);
+	}
+	nav {
+		max-width: 1120px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+		height: 68px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
 	}
 	.brand {
 		display: flex;
 		align-items: center;
-		padding: 0.6em 0;
 	}
 	.brand :global(img) {
-		height: 36px;
+		height: 30px;
 		width: auto;
-		border-radius: 0;
 	}
-	nav {
+	.internal-links {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1em;
+		gap: 0.35rem;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--cream);
-		border-bottom: 4px solid transparent;
+	.internal-links :global(a) {
+		color: color-mix(in srgb, var(--color-cream) 85%, transparent);
 		text-decoration: none;
+		font-size: 0.82rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 0.5rem 0.85rem;
+		border-radius: 999px;
+		transition: color 0.2s ease, background 0.2s ease;
 	}
-	.internal-links a:hover,
-	nav a.active {
-		color: #fff;
-		border-bottom-color: var(--cream);
+	.internal-links :global(a:hover),
+	.internal-links :global(a.active) {
+		color: var(--color-cream);
+		background: color-mix(in srgb, var(--color-cream) 12%, transparent);
 	}
 	.shop-cta {
-		align-items: center;
-		font-weight: 700;
-		color: var(--cream) !important;
-		border: 2px solid var(--cream);
+		color: var(--color-crimson);
+		background: var(--color-cream);
+		font-size: 0.82rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		text-decoration: none;
+		padding: 0.55rem 1.1rem;
 		border-radius: 999px;
-		padding: 0.4em 1em !important;
 		white-space: nowrap;
+		transition: transform 0.2s ease, background 0.2s ease;
 	}
 	.shop-cta:hover {
-		background: var(--cream);
-		color: var(--accent) !important;
-		border-bottom-color: transparent !important;
+		background: #fff;
+		color: var(--color-crimson-dark);
+		transform: translateY(-1px);
 	}
-	@media (max-width: 720px) {
-		.internal-links {
-			font-size: 0.9em;
+	@media (max-width: 640px) {
+		.internal-links :global(a) {
+			padding: 0.5rem 0.5rem;
+			font-size: 0.72rem;
+			letter-spacing: 0.05em;
 		}
-		.social-links {
+		.shop-cta {
 			display: none;
 		}
 	}

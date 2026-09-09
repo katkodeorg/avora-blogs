@@ -1,144 +1,180 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+@import 'tailwindcss';
 
-:root {
-	/* Avora brand palette (sampled from avoramatcha.com) */
-	--accent: #761919; /* deep crimson — brand primary, hsl(0 65% 28%) */
-	--accent-dark: #541212; /* darker crimson for hovers */
-	--matcha: #5a8a42; /* secondary matcha-green accent, hsl(100 35% 40%) */
-	--cream: #f7f2eb; /* warm cream background, hsl(30 33% 95%) */
-	--black: 51, 17, 17; /* near-black maroon for headings */
-	--gray: 124, 96, 92; /* muted warm brown for secondary text */
-	--gray-light: 226, 216, 204; /* warm cream borders */
-	--gray-dark: 77, 26, 26; /* maroon body text, hsl(0 50% 20%) */
-	--gray-gradient: rgba(var(--gray-light), 55%), var(--cream);
-	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 30%),
-		0 16px 32px rgba(var(--gray), 30%);
+/* ---------------------------------------------------------------------------
+   Avora Matcha editorial design system.
+   Elegant, calm, print-magazine feel.
+--------------------------------------------------------------------------- */
+@theme {
+	/* Brand colors */
+	--color-cream: #f7f2eb;
+	--color-cream-soft: #fbf8f2;
+	--color-card: #fffdf9;
+	--color-crimson: #761919;
+	--color-crimson-dark: #541212;
+	--color-matcha: #5a8a42;
+	--color-ink: #3a1414; /* headings */
+	--color-body: #4d2a2a; /* body copy */
+	--color-muted: #8a6a64; /* secondary text */
+	--color-line: #e6dccf; /* hairline borders */
+
+	/* Typography: Cormorant Garamond (display) + DM Sans (body) */
+	--font-display: var(--font-cormorant), Georgia, serif;
+	--font-sans: var(--font-dmsans), system-ui, sans-serif;
+
+	/* Rhythm */
+	--radius-card: 16px;
+	--shadow-soft: 0 1px 2px rgba(58, 20, 20, 0.04),
+		0 8px 30px rgba(58, 20, 20, 0.06);
+	--shadow-lift: 0 2px 6px rgba(58, 20, 20, 0.06),
+		0 18px 50px rgba(58, 20, 20, 0.1);
 }
-body {
-	font-family: var(--font-atkinson);
-	margin: 0;
-	padding: 0;
-	text-align: left;
-	background: var(--cream) linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 20px;
-	line-height: 1.7;
-}
-main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.2;
-}
-h1 {
-	font-size: 3.052em;
-}
-h2 {
-	font-size: 2.441em;
-}
-h3 {
-	font-size: 1.953em;
-}
-h4 {
-	font-size: 1.563em;
-}
-h5 {
-	font-size: 1.25em;
-}
-strong,
-b {
-	font-weight: 700;
-}
-a {
-	color: var(--accent);
-}
-a:hover {
-	color: var(--accent-dark);
-}
-p {
-	margin-bottom: 1em;
-}
-.prose p {
-	margin-bottom: 2em;
-}
-textarea {
-	width: 100%;
-	font-size: 16px;
-}
-input {
-	font-size: 16px;
-}
-table {
-	width: 100%;
-}
-img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 8px;
-}
-code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
-}
-pre {
-	padding: 1.5em;
-	border-radius: 8px;
-}
-pre > code {
-	all: unset;
-}
-blockquote {
-	border-left: 4px solid var(--accent);
-	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
-}
-hr {
-	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
-}
-@media (max-width: 720px) {
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
 	body {
+		background-color: var(--color-cream);
+		color: var(--color-body);
+		font-family: var(--font-sans);
 		font-size: 18px;
+		line-height: 1.75;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
 	}
-	main {
-		padding: 1em;
+	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--font-display);
+		color: var(--color-ink);
+		font-weight: 600;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
 	}
+	h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+	h2 { font-size: clamp(1.9rem, 3.5vw, 2.6rem); }
+	h3 { font-size: 1.5rem; }
+	a {
+		color: var(--color-crimson);
+		text-underline-offset: 3px;
+	}
+	a:hover { color: var(--color-crimson-dark); }
+	strong, b { font-weight: 700; color: var(--color-ink); }
+	::selection { background: var(--color-crimson); color: var(--color-cream); }
+}
+
+/* ---- Editorial prose (blog post + long-form content) ---- */
+.prose {
+	color: var(--color-body);
+	font-size: 1.15rem;
+	line-height: 1.8;
+}
+.prose > * + * { margin-top: 1.4em; }
+.prose h2 {
+	margin-top: 2.2em;
+	margin-bottom: 0.4em;
+}
+.prose h3 {
+	margin-top: 1.6em;
+	margin-bottom: 0.3em;
+}
+.prose p { margin-bottom: 0; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose li { margin-top: 0.4em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose img {
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-soft);
+	margin: 2em auto;
+}
+.prose a { text-decoration: underline; text-decoration-color: var(--color-line); }
+.prose a:hover { text-decoration-color: currentColor; }
+.prose blockquote {
+	border-left: 3px solid var(--color-crimson);
+	padding-left: 1.2em;
+	font-style: italic;
+	color: var(--color-muted);
+}
+.prose code {
+	font-size: 0.9em;
+	background: var(--color-cream-soft);
+	border: 1px solid var(--color-line);
+	padding: 0.1em 0.4em;
+	border-radius: 6px;
+}
+.prose table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	font-size: 0.98rem;
+}
+.prose th, .prose td {
+	border-bottom: 1px solid var(--color-line);
+	padding: 0.6em 0.8em;
+	text-align: left;
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+.prose th {
+	font-family: var(--font-sans);
+	font-weight: 600;
+	color: var(--color-ink);
+}
+
+/* ---- Subtle, tasteful motion (CSS-only, respects reduced-motion) ---- */
+@keyframes fade-up {
+	from { opacity: 0; transform: translateY(16px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+	animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.22s; }
+.delay-3 { animation-delay: 0.34s; }
+.delay-4 { animation-delay: 0.46s; }
+
+/* Scroll-reveal (driven by the IntersectionObserver in BaseHead) */
+[data-reveal] {
+	opacity: 0;
+	transform: translateY(22px);
+	transition:
+		opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+	will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* Card hover-lift */
+.lift {
+	transition:
+		transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+		box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lift:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-lift);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	.animate-fade-up { animation: none; }
+	[data-reveal] { opacity: 1; transform: none; transition: none; }
+	.lift:hover { transform: none; }
 }
 
 .sr-only {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	position: absolute !important;
-	height: 1px;
+	position: absolute;
 	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
 	overflow: hidden;
-	/* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-	clip: rect(1px 1px 1px 1px);
-	/* maybe deprecated but we need to support legacy browsers */
-	clip: rect(1px, 1px, 1px, 1px);
-	/* modern browsers, clip-path works inwards from each corner */
-	clip-path: inset(50%);
-	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
+	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;
+	border: 0;
 }
