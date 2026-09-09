@@ -1,0 +1,69 @@
+---
+import AboutHeroImage from '../assets/brand/founders-note.png';
+import Layout from '../layouts/BlogPost.astro';
+import { STORE_URL, CONTACT_EMAIL } from '../consts';
+---
+
+<Layout
+	title="About Avora Matcha — Our Founders' Note"
+	description="Avora Matcha was founded by Shruti and Elishia on one simple truth: matcha is for everyone. Ceremonial-grade matcha from first-harvest leaves in Kyoto and Kagoshima, Japan."
+	pubDate={new Date('January 01 2026')}
+	heroImage={AboutHeroImage}
+>
+	<p>
+		For many, matcha feels like a moment — a trend that travelled from Japan
+		alongside Studio Ghibli films, anime, and a wave of cultural fascination.
+		Beautiful, yes. But fleeting.
+	</p>
+	<p>For <strong>Shruti</strong>, matcha was never a trend. It was transformational.</p>
+
+	<p>
+		Shruti moves through life with the energy of a sprinter and the stamina of
+		a marathon runner — driven by an internal fire and fuelled by big dreams. A
+		certified yoga instructor, a software engineer, a model, and the founder of
+		Sahai (a non-profit mental health organisation), she needed something that
+		could keep up with her pace without slowing her down.
+	</p>
+	<p>
+		Coffee made her jittery, followed by an inevitable crash. Tea was calming,
+		but too gentle. And then came matcha. It met her exactly where she was: a
+		steady rise, sustained energy, focus without frenzy, power without burnout.
+		Cup after cup, it supported her active lifestyle, sharpened her mind, and
+		grounded her body. Once it became part of her rhythm, it stayed.
+	</p>
+
+	<h2>Matcha deserved a place in everyday life</h2>
+	<p>
+		Shruti saw matcha not just as a drink, but as a quiet ally — one that could
+		support a CEO powering through long days, a dancer moving through
+		rehearsals, or anyone who cares about their health, energy, and inner
+		balance. She believed matcha deserved a place in everyday life, without
+		elitism and without stereotypes. That belief became <strong>Avora
+		Matcha</strong>.
+	</p>
+	<p>
+		Avora truly came alive when Shruti met a kindred spirit — <strong>Elishia
+		</strong>. A marketer by day, a devoted matcha lover by heart, and an
+		unwavering believer in Shruti's vision, Elishia joined as a partner on the
+		journey.
+	</p>
+
+	<h2>Matcha is for everyone</h2>
+	<p>
+		Together, they built Avora on one simple truth: <strong>matcha is for
+		everyone</strong>. No labels. No archetypes. Just the best quality matcha,
+		meant to help you feel your best, live fully, and show up as yourself —
+		whatever that looks like.
+	</p>
+	<p>
+		We're so excited for you to try Avora — just really good matcha that gives
+		you a high that lasts.
+	</p>
+	<p><em>With love &amp; matcha,<br />Shruti &amp; Elishia</em></p>
+
+	<p>
+		Ready to taste it? <a href={STORE_URL} target="_blank" rel="noopener">Shop
+		Avora Matcha</a>, or reach us any time at
+		<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+	</p>
+</Layout>

@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import { STORE_URL } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+import logo from '../assets/brand/avora-logo.png';
+---
+
+<header>
+	<nav>
+		<a class="brand" href="/">
+			<Image src={logo} alt="Avora Matcha" height={36} densities={[1.5, 2]} />
+		</a>
+		<div class="internal-links">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Journal</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/faq">FAQ</HeaderLink>
+		</div>
+		<div class="social-links">
+			<a class="shop-cta" href={STORE_URL} target="_blank" rel="noopener">
+				Shop Avora →
+			</a>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		margin: 0;
+		padding: 0 1.5em;
+		background: var(--accent);
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+	}
+	.brand {
+		display: flex;
+		align-items: center;
+		padding: 0.6em 0;
+	}
+	.brand :global(img) {
+		height: 36px;
+		width: auto;
+		border-radius: 0;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: var(--cream);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	.internal-links a:hover,
+	nav a.active {
+		color: #fff;
+		border-bottom-color: var(--cream);
+	}
+	.shop-cta {
+		align-items: center;
+		font-weight: 700;
+		color: var(--cream) !important;
+		border: 2px solid var(--cream);
+		border-radius: 999px;
+		padding: 0.4em 1em !important;
+		white-space: nowrap;
+	}
+	.shop-cta:hover {
+		background: var(--cream);
+		color: var(--accent) !important;
+		border-bottom-color: transparent !important;
+	}
+	@media (max-width: 720px) {
+		.internal-links {
+			font-size: 0.9em;
+		}
+		.social-links {
+			display: none;
+		}
+	}
+</style>

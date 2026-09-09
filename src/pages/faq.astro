@@ -1,0 +1,158 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { STORE_URL } from '../consts';
+
+const title = 'Avora Matcha FAQ — Shipping, Storage & How to Drink It';
+const description =
+	'Answers to common questions about Avora Matcha: shipping across India, how to store matcha, how much to use per serving, daily consumption, and how it makes you feel.';
+
+const faqs = [
+	{
+		q: 'How long does it take for my Avora matcha to reach me?',
+		a: 'Orders are typically processed within 24–48 hours and delivered within 5–7 business days, depending on your location. You’ll receive tracking details as soon as your order ships.',
+	},
+	{
+		q: 'Where do you ship?',
+		a: 'We currently ship across India. If you’re outside our delivery zones, stay close — we’re expanding.',
+	},
+	{
+		q: 'How should I store my matcha?',
+		a: 'Store Avora matcha in a cool, dry place, away from direct sunlight and moisture. Reseal tightly after use to preserve freshness and flavour.',
+	},
+	{
+		q: 'How much matcha should I use per serving?',
+		a: 'We recommend 1–2 teaspoons per cup, depending on how strong you like it. Start light — you can always add more.',
+	},
+	{
+		q: 'Is Avora matcha suitable for daily consumption?',
+		a: 'Yes. Avora matcha can be enjoyed daily as part of a balanced routine. If you’re sensitive to caffeine, we suggest starting with smaller servings.',
+	},
+	{
+		q: 'Who can drink Avora matcha?',
+		a: 'Short answer: everyone. Long answer: dancers, boxers, yoga girls, pilates girls, founders, CEOs, night owls, early risers, women, men, and anyone in between. Avora doesn’t believe in “aesthetic-only” wellness. If you’ve got a body and a brain, you’re invited.',
+	},
+	{
+		q: 'Is matcha only for “that” kind of person?',
+		a: 'You know the stereotype. Linen sets. Green smoothies. Pilates at 7am. We’re here to say — no. Avora matcha is for high-energy lives, creative minds, and people who want calm and drive. No labels required.',
+	},
+	{
+		q: 'What does Avora matcha make you feel like?',
+		a: 'Focused, steady, and quietly powerful. Think clean energy without the jitters, clarity without the crash, and a sense that you’ve got your day handled, even if your calendar disagrees.',
+	},
+	{
+		q: 'Is this a coffee replacement?',
+		a: 'It can be — if you want it to be. Many people switch to Avora matcha for smoother energy and better focus. Others keep both and choose based on the day. We’re not here to start a caffeine war.',
+	},
+];
+
+// FAQPage structured data — can produce expandable FAQ rich results in Google.
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((f) => ({
+		'@type': 'Question',
+		name: f.q,
+		acceptedAnswer: { '@type': 'Answer', text: f.a },
+	})),
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(faqSchema)}
+		/>
+		<style>
+			.faq-intro {
+				margin-bottom: 2em;
+			}
+			details {
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				padding: 0.25em 1.25em;
+				margin-bottom: 0.75em;
+				background: #fff;
+			}
+			details[open] {
+				box-shadow: var(--box-shadow);
+			}
+			summary {
+				cursor: pointer;
+				font-weight: 700;
+				font-size: 1.1em;
+				padding: 0.9em 0;
+				list-style: none;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1em;
+				color: rgb(var(--black));
+			}
+			summary::-webkit-details-marker {
+				display: none;
+			}
+			summary::after {
+				content: '+';
+				color: var(--accent);
+				font-size: 1.4em;
+				line-height: 1;
+			}
+			details[open] summary::after {
+				content: '–';
+			}
+			details p {
+				margin: 0 0 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.faq-cta {
+				margin-top: 2.5em;
+				text-align: center;
+			}
+			.btn {
+				display: inline-block;
+				text-decoration: none;
+				font-weight: 700;
+				padding: 0.6em 1.4em;
+				border-radius: 999px;
+				border: 2px solid var(--accent);
+				background: var(--accent);
+				color: var(--cream);
+			}
+			.btn:hover {
+				background: var(--accent-dark);
+				color: var(--cream);
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Frequently Asked Questions</h1>
+			<p class="faq-intro">
+				Everything you might want to know about Avora Matcha — shipping,
+				storage, how much to use, and what it actually feels like.
+			</p>
+
+			{
+				faqs.map((f) => (
+					<details>
+						<summary>{f.q}</summary>
+						<p>{f.a}</p>
+					</details>
+				))
+			}
+
+			<div class="faq-cta">
+				<a class="btn" href={STORE_URL} target="_blank" rel="noopener">
+					Shop Avora Matcha →
+				</a>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

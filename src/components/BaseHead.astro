@@ -1,0 +1,140 @@
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../styles/global.css';
+import type { ImageMetadata } from 'astro';
+import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import { SITE_TITLE, BRAND_NAME, SITE_URL, SOCIAL_LINKS } from '../consts';
+import { Font } from 'astro:assets';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: ImageMetadata;
+	/** Set to true on blog post pages so we emit Article structured data. */
+	article?: {
+		publishedTime?: Date;
+		modifiedTime?: Date;
+	};
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const {
+	title,
+	description,
+	image = FallbackImage,
+	article,
+} = Astro.props;
+
+const socialImageURL = new URL(image.src, Astro.url).toString();
+// Logo lives on this blog site (where the favicon actually exists).
+const logoURL = new URL('/avora-favicon.png', Astro.site).toString();
+
+// Organization structured data — helps Google understand the brand and can
+// power a Knowledge Panel. Emitted on every page.
+const organizationSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: BRAND_NAME,
+	url: SITE_URL,
+	logo: logoURL,
+	...(SOCIAL_LINKS.length ? { sameAs: SOCIAL_LINKS } : {}),
+};
+
+// Article structured data — only on blog posts. Enables article rich results.
+const articleSchema = article
+	? {
+			'@context': 'https://schema.org',
+			'@type': 'BlogPosting',
+			headline: title,
+			description,
+			image: socialImageURL,
+			url: canonicalURL.toString(),
+			...(article.publishedTime
+				? { datePublished: article.publishedTime.toISOString() }
+				: {}),
+			...(article.modifiedTime
+				? { dateModified: article.modifiedTime.toISOString() }
+				: {}),
+			publisher: {
+				'@type': 'Organization',
+				name: BRAND_NAME,
+				logo: {
+					'@type': 'ImageObject',
+					url: logoURL,
+				},
+			},
+			author: { '@type': 'Organization', name: BRAND_NAME },
+		}
+	: null;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/png" href="/avora-favicon.png" />
+<link rel="apple-touch-icon" href="/avora-favicon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={SITE_TITLE}
+	href={new URL('rss.xml', Astro.site)}
+/>
+<meta name="generator" content={Astro.generator} />
+
+<Font cssVariable="--font-atkinson" preload />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={article ? 'article' : 'website'} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={BRAND_NAME} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+{
+	article?.publishedTime && (
+		<meta
+			property="article:published_time"
+			content={article.publishedTime.toISOString()}
+		/>
+	)
+}
+{
+	article?.modifiedTime && (
+		<meta
+			property="article:modified_time"
+			content={article.modifiedTime.toISOString()}
+		/>
+	)
+}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageURL} />
+
+<!-- Structured Data (JSON-LD) -->
+<script
+	type="application/ld+json"
+	set:html={JSON.stringify(organizationSchema)}
+/>
+{
+	articleSchema && (
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify(articleSchema)}
+		/>
+	)
+}

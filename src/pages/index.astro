@@ -1,0 +1,228 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import WhiskTimer from '../components/WhiskTimer.tsx';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, STORE_URL } from '../consts';
+import heroImg from '../assets/brand/hero-bg.jpg';
+import regionImg from '../assets/brand/region.png';
+import gradeImg from '../assets/brand/grade.jpg';
+import tastingImg from '../assets/brand/tasting.png';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
+const cards = [
+	{
+		img: regionImg,
+		title: 'Region',
+		text: 'Made from first-harvest leaves sourced from Kyoto and Kagoshima, Japan.',
+	},
+	{
+		img: gradeImg,
+		title: 'Grade',
+		text: 'Ceremonial-grade matcha, crafted from carefully selected leaves for a smooth, refined, high-quality everyday cup.',
+	},
+	{
+		img: tastingImg,
+		title: 'Tasting Notes',
+		text: 'A vibrant green color, rich umami, and a fresh aroma. Each sip is full-bodied, calm, and gently energizing.',
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero {
+				display: grid;
+				grid-template-columns: 1.1fr 0.9fr;
+				gap: 2em;
+				align-items: center;
+				padding: 1em 0 2.5em;
+			}
+			.hero h1 {
+				font-size: 2.8em;
+				margin-bottom: 0.2em;
+			}
+			.hero .tagline {
+				font-size: 1.15em;
+				color: rgb(var(--gray));
+				margin-top: 0;
+			}
+			.hero-img :global(img) {
+				border-radius: 16px;
+				box-shadow: var(--box-shadow);
+				width: 100%;
+				height: auto;
+			}
+			.cta-row {
+				display: flex;
+				gap: 0.75em;
+				flex-wrap: wrap;
+				margin: 1.25em 0 0;
+			}
+			.btn {
+				text-decoration: none;
+				font-weight: 700;
+				padding: 0.6em 1.4em;
+				border-radius: 999px;
+				border: 2px solid var(--accent);
+			}
+			.btn.primary {
+				background: var(--accent);
+				color: var(--cream);
+			}
+			.btn.primary:hover {
+				background: var(--accent-dark);
+			}
+			.btn.secondary {
+				color: var(--accent);
+			}
+			.intro {
+				text-align: center;
+				max-width: 640px;
+				margin: 1em auto 2.5em;
+			}
+			.cards {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 1.25em;
+				margin: 0 0 3em;
+			}
+			.card :global(img) {
+				border-radius: 12px;
+				aspect-ratio: 4 / 3;
+				object-fit: cover;
+				width: 100%;
+			}
+			.card h3 {
+				margin: 0.5em 0 0.2em;
+				font-size: 1.3em;
+			}
+			.card p {
+				color: rgb(var(--gray));
+				font-size: 0.95em;
+			}
+			.section-title {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 1em;
+			}
+			.section-title a {
+				font-size: 0.8em;
+			}
+			ul.posts {
+				list-style: none;
+				padding: 0;
+			}
+			ul.posts li {
+				padding: 0.75em 0;
+				border-bottom: 1px solid rgb(var(--gray-light));
+			}
+			ul.posts a {
+				font-size: 1.15em;
+				font-weight: 700;
+				text-decoration: none;
+			}
+			ul.posts .date {
+				display: block;
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+			}
+			.widget {
+				margin: 3em 0;
+			}
+			@media (max-width: 720px) {
+				.hero {
+					grid-template-columns: 1fr;
+				}
+				.cards {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<div>
+					<h1>The Avora Matcha Journal</h1>
+					<p class="tagline">
+						Everything about ceremonial-grade matcha — how to make it, where it
+						comes from, and why it feels the way it does. Experience the eternal
+						high.
+					</p>
+					<div class="cta-row">
+						<a class="btn primary" href="/blog">Read the Journal</a>
+						<a class="btn secondary" href={STORE_URL} target="_blank" rel="noopener">
+							Shop Avora Matcha
+						</a>
+					</div>
+				</div>
+				<div class="hero-img">
+					<Image src={heroImg} alt="Avora ceremonial matcha in signature red tins" widths={[400, 720]} sizes="(max-width: 720px) 100vw, 45vw" />
+				</div>
+			</section>
+
+			<section class="intro">
+				<h2>Not your stereotypical matcha</h2>
+				<p>
+					Coffee is for hustle. Tea is for calm. Matcha never fit either. Real
+					matcha is a paradox — calming yet energizing, grounding yet
+					sharpening. It doesn't spike. It doesn't crash. It stays with you.
+				</p>
+			</section>
+
+			<section class="cards">
+				{
+					cards.map((c) => (
+						<div class="card">
+							<Image src={c.img} alt={c.title} width={360} height={270} />
+							<h3>{c.title}</h3>
+							<p>{c.text}</p>
+						</div>
+					))
+				}
+			</section>
+
+			<section class="widget">
+				<h2>Try it: the 30-second whisk</h2>
+				<p>
+					The difference between grassy and smooth is often just technique. Use
+					this timer next time you whisk — brisk “W” strokes for 30 seconds.
+				</p>
+				<!-- React island: renders to HTML for SEO, hydrates in the browser. -->
+				<WhiskTimer client:visible />
+			</section>
+
+			<section>
+				<div class="section-title">
+					<h2>Latest from the Journal</h2>
+					<a href="/blog">View all →</a>
+				</div>
+				<ul class="posts">
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<span class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</span>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

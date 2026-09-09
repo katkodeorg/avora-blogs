@@ -1,0 +1,63 @@
+---
+import { BRAND_NAME, STORE_URL, CONTACT_EMAIL, SOCIAL_LINKS } from '../consts';
+const today = new Date();
+---
+
+<footer>
+	<div class="footer-links">
+		<a href="/">Home</a>
+		<a href="/blog">Journal</a>
+		<a href="/about">About</a>
+		<a href={STORE_URL} target="_blank" rel="noopener">Shop</a>
+		<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+	</div>
+	{
+		SOCIAL_LINKS.length > 0 && (
+			<div class="social-links">
+				{SOCIAL_LINKS.map((href) => (
+					<a href={href} target="_blank" rel="noopener">
+						{new URL(href).hostname.replace('www.', '')}
+					</a>
+				))}
+			</div>
+		)
+	}
+	<p class="legal">
+		&copy; {today.getFullYear()} {BRAND_NAME}. All rights reserved. Ceremonial-grade
+		matcha from Kyoto &amp; Kagoshima, Japan.
+	</p>
+</footer>
+<style>
+	footer {
+		padding: 2em 1em 6em 1em;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.5em 1.5em;
+		margin-bottom: 1em;
+	}
+	.footer-links a,
+	.social-links a {
+		text-decoration: none;
+		color: rgb(var(--gray));
+	}
+	.footer-links a:hover,
+	.social-links a:hover {
+		color: var(--accent);
+	}
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-bottom: 1em;
+	}
+	.legal {
+		font-size: 0.85em;
+		margin: 0;
+	}
+</style>
