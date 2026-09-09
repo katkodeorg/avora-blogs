@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
-import { STORE_URL } from '../consts';
+import { STORE_URL, withBase } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import logo from '../assets/brand/avora-logo.png';
 ---
 
 <header>
 	<nav>
-		<a class="brand" href="/" aria-label="Avora Matcha home">
+		<a class="brand" href={withBase('/')} aria-label="Avora Matcha home">
 			<Image src={logo} alt="Avora Matcha" height={30} densities={[1.5, 2]} />
 		</a>
 		<div class="internal-links">

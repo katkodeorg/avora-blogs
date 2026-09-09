@@ -1,5 +1,5 @@
 ---
-import { BRAND_NAME, STORE_URL, CONTACT_EMAIL, SOCIAL_LINKS } from '../consts';
+import { BRAND_NAME, STORE_URL, CONTACT_EMAIL, SOCIAL_LINKS, withBase } from '../consts';
 const today = new Date();
 ---
 
@@ -10,10 +10,10 @@ const today = new Date();
 			<p class="tag">Experience the eternal high.</p>
 		</div>
 		<nav class="links" aria-label="Footer">
-			<a href="/">Home</a>
-			<a href="/blog">Journal</a>
-			<a href="/about">About</a>
-			<a href="/faq">FAQ</a>
+			<a href={withBase('/')}>Home</a>
+			<a href={withBase('/blog')}>Journal</a>
+			<a href={withBase('/about')}>About</a>
+			<a href={withBase('/faq')}>FAQ</a>
 			<a href={STORE_URL} target="_blank" rel="noopener">Shop</a>
 			<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
 			{

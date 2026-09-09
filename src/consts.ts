@@ -14,3 +14,11 @@ export const SOCIAL_LINKS: string[] = [
 	// Add your real social profile URLs here (Instagram, TikTok, etc.).
 	// They strengthen Organization structured data via `sameAs`.
 ];
+
+// Prefix an internal path with the site's base path (e.g. /avora-blogs) so
+// links work both on the GitHub Pages project site and at the root domain.
+export function withBase(path = '/'): string {
+	const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+	const p = path.startsWith('/') ? path : `/${path}`;
+	return `${base}${p}` || '/';
+}

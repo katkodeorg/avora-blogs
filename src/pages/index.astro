@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 import WhiskTimer from '../components/WhiskTimer.tsx';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_DESCRIPTION, SITE_TITLE, STORE_URL } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, STORE_URL, withBase } from '../consts';
 import heroImg from '../assets/brand/hero-bg.jpg';
 import regionImg from '../assets/brand/region.png';
 import gradeImg from '../assets/brand/grade.jpg';
@@ -44,7 +44,7 @@ const cards = [
 						matcha.
 					</p>
 					<div class="cta-row animate-fade-up delay-3">
-						<a class="btn primary" href="/blog">Read the Journal</a>
+						<a class="btn primary" href={withBase('/blog')}>Read the Journal</a>
 						<a class="btn outline" href={STORE_URL} target="_blank" rel="noopener">Shop Avora</a>
 					</div>
 				</div>
@@ -99,13 +99,13 @@ const cards = [
 			<section class="latest" data-reveal>
 				<div class="section-head">
 					<h2>From the Journal</h2>
-					<a class="viewall" href="/blog">View all →</a>
+					<a class="viewall" href={withBase('/blog')}>View all →</a>
 				</div>
 				<ul class="post-list">
 					{
 						posts.map((post) => (
 							<li>
-								<a href={`/blog/${post.id}/`}>
+								<a href={withBase(`/blog/${post.id}/`)}>
 									<span class="post-date">
 										<FormattedDate date={post.data.pubDate} />
 									</span>
